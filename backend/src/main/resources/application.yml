@@ -1,0 +1,67 @@
+# ============================================
+# 代码片段管理系统 - 应用配置文件
+# 使用前请修改：数据库密码、JWT 密钥
+# ============================================
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://localhost:3306/code_snippet_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      username: appuser
+      password: 328318@Aa
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      validation-query: SELECT 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 1000
+        wall:
+          enabled: true
+          config:
+            drop-table-allow: false
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# ============================================
+# JWT 配置（生产环境请更换为复杂随机字符串）
+# ============================================
+jwt:
+  secret: 请修改为随机密钥字符串至少32位
+  expiration: 7200000
+  remember-expiration: 604800000
+  token-prefix: "Bearer "
+
+# ============================================
+# AI 接口配置：已移至网页「系统设置」，每个用户可独立配置
+# ============================================
+
+logging:
+  level:
+    root: info
+    com.gcsj2: debug
